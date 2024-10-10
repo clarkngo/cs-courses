@@ -1,1 +1,1 @@
-# cs628
+# full-stack-course
