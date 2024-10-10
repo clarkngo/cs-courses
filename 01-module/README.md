@@ -6,7 +6,10 @@
 
 ## Setup Instructions
 
-### 1. **Backend Setup:**
+### 1. **Database Setup:**
+1. Follow the mongodb-setup.pdf instructions.
+
+### 2. **Backend Setup:**
 1. **Create a `.env` file** in the **backend/** directory to store your MongoDB URI and port configuration. You can copy the format from `example.env`:
    ```bash
    MONGODB_URI=mongodb+srv://<username>:<password>@<cluster-url>/sample_supplies?retryWrites=true&w=majority
@@ -33,7 +36,7 @@
    https://animated-succotash-wv6pq9rrgpx35rr9-5000.app.github.dev/api/hello
    ```
 
-### 2. **Frontend Setup:**
+### 3. **Frontend Setup:**
 1. **Create a `.env` file** in the **frontend/** directory to store the API URL. Replace `localhost` with the **GitHub Codespaces forwarded address** for the backend API:
    ```bash
    REACT_APP_API_URL=https://animated-succotash-wv6pq9rrgpx35rr9-5000.app.github.dev/api
