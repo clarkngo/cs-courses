@@ -8,6 +8,10 @@ const port = 3001;
 app.use(cors());
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
 app.post('/api/chat', async (req, res) => {
   const userMessage = req.body.content || "Please provide a message.";
 
