@@ -7,7 +7,7 @@
 
 ## Pull and Chat with a Large Language Model (LLM) Conversational AI
 1. Open New Terminal
-2. `ollama pull llama3.2:1b`
+2. `ollama pull gemma2:2b`
 
 ## Run ExpressJS Backend Server
 1. Open New Terminal

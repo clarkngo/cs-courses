@@ -18,18 +18,18 @@ app.post('/api/chat', async (req, res) => {
   res.flushHeaders(); // Flush headers to establish SSE connection
 
   try {
-    // Send the request to Llama 3.2:1b model
+    // Send the request to Gemma 2:2b model
     const axiosResponse = await axios({
       method: 'post',
       url: 'http://localhost:11434/api/generate',
       data: {
-        model: 'llama3.2:1b',
+        model: 'gemma2:2b',
         prompt: userMessage,
       },
       responseType: 'stream',  // Enable streaming response from the model
     });
 
-    // Stream the response from Llama model to the client
+    // Stream the response from Gemma model to the client
     axiosResponse.data.on('data', (chunk) => {
       const chunkStr = chunk.toString();
       res.write(`data: ${chunkStr}\n\n`);  // Send each chunk as an SSE event
@@ -42,7 +42,7 @@ app.post('/api/chat', async (req, res) => {
 
   } catch (error) {
     console.error('Error during chat response streaming:', error);
-    res.status(500).json({ error: 'Failed to process the request with Llama 3.2:1b.' });
+    res.status(500).json({ error: 'Failed to process the request with Gemma 2:2b.' });
   }
 });
 

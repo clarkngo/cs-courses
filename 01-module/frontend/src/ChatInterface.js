@@ -78,7 +78,7 @@ function ChatInterface() {
 
   return (
     <div>
-      <h1>Chat with Llama 3.2:1b</h1>
+      <h1>Chat with Gemma 2:2b</h1>
 
       <div>
         <textarea
