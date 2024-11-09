@@ -1,38 +1,31 @@
-import { getImageUrl } from './utils.js'
-import './AvatarCSS.css';
-
-function Avatar({ person, size }) {
-  return (
-    <img
-      className="avatar"
-      src={getImageUrl(person)}
-      alt={person.name}
-      width={size}
-      height={size}
-    />
-  );
-}
-
-function Card({ children }) {
-  return (
-    <div className="card">
-      {children}
-    </div>
-  );
-}
-
-function App() {
-  return (
-    <Card>
-      <Avatar
-        size={100}
-        person={{
-          name: 'Katsuko Saruhashi',
-          imageId: 'YfeOqp2'
-        }}
-      />
-    </Card>
-  );
-}
-
-export default App;
+function Item({ name, isPacked }) {
+    return (
+      <li>
+        {name} {isPacked && '✔'}
+      </li>
+    );
+  }
+  
+  function App() {
+    return (
+      <section>
+        <h1>Sally Ride's Packing List</h1>
+        <ul>
+          <Item
+            isPacked={true}
+            name="Space suit"
+          />
+          <Item
+            isPacked={true}
+            name="Helmet with a golden leaf"
+          />
+          <Item
+            isPacked={false}
+            name="Photo of Tam"
+          />
+        </ul>
+      </section>
+    );
+  }
+  
+  export default App;
