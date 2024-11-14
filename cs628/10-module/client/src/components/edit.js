@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
  
 export default function Edit() {
+ const backendUrl = process.env.REACT_APP_BACKEND_URL;
  const [form, setForm] = useState({
    name: "",
    position: "",
@@ -14,7 +15,7 @@ export default function Edit() {
  useEffect(() => {
    async function fetchData() {
      const id = params.id.toString();
-     const response = await fetch(`https://curly-cod-vp49jg66qjgcp7p7-5050.app.github.dev/record/${params.id.toString()}`);
+     const response = await fetch(`${backendUrl}/record/${params.id.toString()}`);
  
      if (!response.ok) {
        const message = `An error has occurred: ${response.statusText}`;

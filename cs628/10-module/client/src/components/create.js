@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
  
 export default function Create() {
+ const backendUrl = process.env.REACT_APP_BACKEND_URL;
  const [form, setForm] = useState({
    name: "",
    position: "",
@@ -23,7 +24,7 @@ export default function Create() {
    // When a post request is sent to the create url, we'll add a new record to the database.
    const newPerson = { ...form };
  
-   await fetch("https://curly-cod-vp49jg66qjgcp7p7-5050.app.github.dev/ecord", {
+   await fetch(`${backendUrl}/record`, {
      method: "POST",
      headers: {
        "Content-Type": "application/json",
