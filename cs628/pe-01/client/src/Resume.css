@@ -1,0 +1,77 @@
+.resume {
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    max-width: 800px;
+    line-height: 1.6;
+    color: #333;
+    padding: 20px;
+    background-color: #f5ffef;
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: #1a4d2e;
+  }
+  
+  .header p {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .section {
+    margin-bottom: 20px;
+  }
+  
+  .section h2 {
+    font-size: 1.5rem;
+    color: #1a4d2e;
+    margin-bottom: 10px;
+  }
+  
+  .education h3,
+  .experience h3,
+  .projects h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #2e8b57;
+  }
+  
+  .education p,
+  .projects p {
+    margin: 5px 0;
+  }
+  
+  .skills ul {
+    list-style-type: none;
+    margin-left: 20px;
+  }
+  
+  .skills li {
+    margin-bottom: 5px;
+    list-style-type: none;
+  }
+  
+  .experience ul {
+    list-style-type: none;
+    margin-left: 20px;
+  }
+  
+  .experience li {
+    margin-bottom: 5px;
+  }
+  
+  .projects a {
+    color: #007acc;
+    text-decoration: none;
+  }
+  
+  .projects a:hover {
+    text-decoration: underline;
+  }
+  
