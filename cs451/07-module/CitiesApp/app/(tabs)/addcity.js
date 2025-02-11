@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 import uuid from 'react-native-uuid';
 import { useRouter } from 'expo-router';
 
-export default function AddCity({ addCity }) {
+export default function AddCity() {
   const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
   const router = useRouter();
@@ -14,7 +14,8 @@ export default function AddCity({ addCity }) {
       return;
     }
 
-    addCity({ city, country, id: uuid() });
+    // Normally, you'd save this to state or context, for now just navigating back
+    console.log('Added City:', { city, country, id: uuid() });
 
     setCity('');
     setCountry('');

@@ -26,20 +26,25 @@ export default function TabLayout() {
           default: {},
         }),
       }}>
+
+      {/* Cities Tab */}
       <Tabs.Screen
-        name="index"
+        name="cities"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: 'Cities',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="building.fill" color={color} />,
         }}
       />
+
+      {/* AddCity Tab */}
       <Tabs.Screen
-        name="explore"
+        name="addcity"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Add City',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="plus.circle.fill" color={color} />,
         }}
       />
+
     </Tabs>
   );
 }
