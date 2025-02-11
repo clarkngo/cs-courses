@@ -14,7 +14,7 @@ export default function Edit() {
  useEffect(() => {
    async function fetchData() {
      const id = params.id.toString();
-     const response = await fetch(`https://curly-cod-vp49jg66qjgcp7p7-5050.app.github.dev/record/${params.id.toString()}`);
+     const response = await fetch(`https://animated-orbit-vp49jg66qgv2xrq-5050.app.github.dev/record/${params.id.toString()}`);
  
      if (!response.ok) {
        const message = `An error has occurred: ${response.statusText}`;
