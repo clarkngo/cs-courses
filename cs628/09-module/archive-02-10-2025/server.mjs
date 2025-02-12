@@ -28,7 +28,7 @@ passport.use(
     {
       clientID: gitHubClientId,
       clientSecret: githubClientSecret,
-      callbackURL: "https://special-garbanzo-r79q5r447vvfwrv-5050.app.github.dev/auth/github/callback"
+      callbackURL: "https://curly-cod-vp49jg66qjgcp7p7-5050.app.github.dev/auth/github/callback"
     },
     async (accessToken, refreshToken, profile, cb) => {
       try {
@@ -63,14 +63,6 @@ app.use(session({ secret: 'secret-key', resave: false, saveUninitialized: false 
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get("/auth/user", (req, res) => {
-  if (req.isAuthenticated()) {
-    res.json({ user: req.user });
-  } else {
-    res.status(401).json({ user: null });
-  }
-});
-
 app.get('/auth/github',
   passport.authenticate('github'));
 
@@ -78,7 +70,7 @@ app.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect('https://special-garbanzo-r79q5r447vvfwrv-3000.app.github.dev/home');
+    res.redirect('https://curly-cod-vp49jg66qjgcp7p7-3000.app.github.dev/home');
   });
 
 // start the Express server

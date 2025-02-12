@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Navbar from "./navbar";
  
 const Record = (props) => (
  <tr>
@@ -20,12 +21,13 @@ const Record = (props) => (
 );
  
 export default function RecordList() {
+const backendUrl = process.env.REACT_APP_BACKEND_URL; 
  const [records, setRecords] = useState([]);
  
  // This method fetches the records from the database.
  useEffect(() => {
    async function getRecords() {
-     const response = await fetch(`https://special-garbanzo-r79q5r447vvfwrv-5050.app.github.dev/record/`);
+     const response = await fetch(`${backendUrl}/record/`);
  
      if (!response.ok) {
        const message = `An error occurred: ${response.statusText}`;
@@ -44,7 +46,7 @@ export default function RecordList() {
  
  // This method will delete a record
  async function deleteRecord(id) {
-   await fetch(`<Replace your API URL>/record/${id}`, {
+   await fetch(`${backendUrl}/record/${id}`, {
      method: "DELETE"
    });
  
@@ -68,6 +70,7 @@ export default function RecordList() {
  // This following section will display the table with the records of individuals.
  return (
    <div>
+    <Navbar />
      <h3>Record List</h3>
      <table className="table table-striped" style={{ marginTop: 20 }}>
        <thead>

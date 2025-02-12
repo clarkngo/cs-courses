@@ -14,7 +14,7 @@ export default function Edit() {
  useEffect(() => {
    async function fetchData() {
      const id = params.id.toString();
-     const response = await fetch(`https://animated-orbit-vp49jg66qgv2xrq-5050.app.github.dev/record/${params.id.toString()}`);
+     const response = await fetch(`https://special-garbanzo-r79q5r447vvfwrv-5050.app.github.dev/record/${params.id.toString()}`);
  
      if (!response.ok) {
        const message = `An error has occurred: ${response.statusText}`;
@@ -53,7 +53,7 @@ export default function Edit() {
    };
  
    // This will send a post request to update the data in the database.
-   await fetch(`<Replace your API URL>/record/${params.id}`, {
+   await fetch(`https://special-garbanzo-r79q5r447vvfwrv-5050.app.github.dev/record/${params.id}`, {
      method: "PATCH",
      body: JSON.stringify(editedPerson),
      headers: {
