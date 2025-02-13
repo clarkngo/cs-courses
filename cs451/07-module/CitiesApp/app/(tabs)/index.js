@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Cities from '../../src/Cities/Cities';
-import AddCity from '../../src/AddCity/AddCity';
+import Cities from './cities';
+import AddCity from './add-city';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,10 +14,10 @@ export default function TabLayout() {
 
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Cities">
+      <Tab.Screen name="cities">
         {(props) => <Cities {...props} cities={cities} />}
       </Tab.Screen>
-      <Tab.Screen name="AddCity">
+      <Tab.Screen name="add-city">
         {(props) => <AddCity {...props} addCity={addCity} />}
       </Tab.Screen>
     </Tab.Navigator>

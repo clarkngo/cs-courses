@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, TouchableWithoutFeedback, ScrollView } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
-import CenterMessage from '@/components/CenterMessage';
+import CenterMessage from '../components/CenterMessage';
+import { useCity } from '../contexts/CityContext';
 
 export default function Cities() {
-  const [cities, setCities] = useState([]);
+  const { cities } = useCity();
 
   return (
     <ScrollView contentContainerStyle={[!cities.length && { flex: 1 }]}>
@@ -24,15 +24,7 @@ export default function Cities() {
 }
 
 const styles = StyleSheet.create({
-  cityContainer: {
-    padding: 10,
-    borderBottomWidth: 2,
-    borderBottomColor: 'gray'
-  },
-  city: {
-    fontSize: 20,
-  },
-  country: {
-    color: 'rgba(0, 0, 0, .5)',
-  }
+  cityContainer: { padding: 10, borderBottomWidth: 2, borderBottomColor: 'gray' },
+  city: { fontSize: 20 },
+  country: { color: 'rgba(0, 0, 0, .5)' },
 });

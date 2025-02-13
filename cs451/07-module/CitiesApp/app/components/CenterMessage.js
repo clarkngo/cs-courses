@@ -1,12 +1,14 @@
 // Listing 6.4 CenterMessage component
 import { Text, View, StyleSheet } from 'react-native'
-import { colors } from '../theme'
+import { colors } from './theme'
 
-const CenterMessage = ({ message }) => (
-  <View style={styles.emptyContainer}>
-    <Text style={styles.message}>{message}</Text>
-  </View>
-)
+export default function CenterMessage({ message }) {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.message}>{message}</Text>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   emptyContainer: {
@@ -19,5 +21,3 @@ const styles = StyleSheet.create({
     fontSize: 20
   }
 })
-
-export default CenterMessage
