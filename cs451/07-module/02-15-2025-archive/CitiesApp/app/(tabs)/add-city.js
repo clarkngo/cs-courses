@@ -28,7 +28,7 @@ export default function AddCity() {
 
     setCity('');
     setCountry('');
-    router.setParams({ screen: 'cities' });
+    router.push('/cities');
   };
 
   return (
