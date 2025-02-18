@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "client-Todos",
-    "slug": "client-Todos",
+    "name": "hos10-todos",
+    "slug": "hos10-todos",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
