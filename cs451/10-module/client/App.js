@@ -5,70 +5,100 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 
-function TodoScreen() {
-  const [todos, setTodos] = useState([]);
-  const [newTodo, setNewTodo] = useState('');
+const API_URL = 'https://super-telegram-77q6jrvv54ghwqjq-5050.app.github.dev/record';
+
+function RecordScreen() {
+  const [records, setRecords] = useState([]);
+  const [name, setName] = useState('');
+  const [position, setPosition] = useState('');
+  const [level, setLevel] = useState('');
+  const [editingRecord, setEditingRecord] = useState(null);
 
   useEffect(() => {
-    fetch('https://dummyjson.com/todos')
-      .then((res) => res.json())
-      .then((data) => setTodos(data.todos));
+    fetchRecords();
   }, []);
 
-  const handleAddTodo = () => {
-    if (newTodo.trim()) {
-      const newItem = {
-        id: todos.length + 1,
-        todo: newTodo,
-        completed: false,
-      };
-      setTodos([...todos, newItem]);
-      setNewTodo('');
+  const fetchRecords = async () => {
+    try {
+      const response = await fetch(API_URL);
+      const data = await response.json();
+      setRecords(data);
+    } catch (error) {
+      console.error('Error fetching records:', error);
     }
   };
 
-  const handleToggleDone = (id) => {
-    setTodos(
-      todos.map((item) =>
-        item.id === id ? { ...item, completed: !item.completed } : item
-      )
-    );
+  const addRecord = async () => {
+    if (!name || !position || !level) return;
+
+    const newRecord = { name, position, level };
+    await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newRecord),
+    });
+
+    fetchRecords();
+    setName('');
+    setPosition('');
+    setLevel('');
   };
 
-  const handleDeleteTodo = (id) => {
-    setTodos(todos.filter((item) => item.id !== id));
+  const deleteRecord = async (id) => {
+    await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+    fetchRecords();
+  };
+
+  const updateRecord = async () => {
+    if (!editingRecord) return;
+
+    await fetch(`${API_URL}/${editingRecord._id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, position, level }),
+    });
+
+    fetchRecords();
+    setEditingRecord(null);
+    setName('');
+    setPosition('');
+    setLevel('');
+  };
+
+  const startEditing = (record) => {
+    setEditingRecord(record);
+    setName(record.name);
+    setPosition(record.position);
+    setLevel(record.level);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>todos</Text>
-      <TextInput
-        placeholder="What needs to be done?"
-        value={newTodo}
-        onChangeText={setNewTodo}
-        style={styles.input}
-      />
-      <Button title="Submit" onPress={handleAddTodo} />
+      <TextInput style={styles.input} placeholder="Name" value={name} onChangeText={setName} />
+      <TextInput style={styles.input} placeholder="Position" value={position} onChangeText={setPosition} />
+      <TextInput style={styles.input} placeholder="Level" value={level} onChangeText={setLevel} />
+      {editingRecord ? (
+        <Button title="Update Record" onPress={updateRecord} />
+      ) : (
+        <Button title="Add Record" onPress={addRecord} />
+      )}
+      
       <FlatList
-        data={todos}
-        keyExtractor={(item) => item.id.toString()}
+        data={records}
+        keyExtractor={(item) => item._id.toString()}
         renderItem={({ item }) => (
-          <View style={styles.todoItem}>
-            <Text style={item.completed ? styles.doneText : styles.todoText}>
-              {item.todo}
-            </Text>
-            <TouchableOpacity
-              style={styles.doneButton}
-              onPress={() => handleToggleDone(item.id)}
-            >
-              <Text style={styles.doneButtonText}>Done</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.deleteButton}
-              onPress={() => handleDeleteTodo(item.id)}
-            >
-              <Text style={styles.deleteButtonText}>Delete</Text>
-            </TouchableOpacity>
+          <View style={styles.recordItem}>
+            <Text style={styles.recordText}>{item.name}</Text>
+            <Text style={styles.recordText}>{item.position}</Text>
+            <Text style={styles.recordText}>{item.level}</Text>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={styles.editButton} onPress={() => startEditing(item)}>
+                <Text style={styles.buttonText}>Edit</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.deleteButton} onPress={() => deleteRecord(item._id)}>
+                <Text style={styles.buttonText}>Delete</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         )}
       />
@@ -79,8 +109,8 @@ function TodoScreen() {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Todos">
-        <Stack.Screen name="Todos" component={TodoScreen} />
+      <Stack.Navigator initialRouteName="Records">
+        <Stack.Screen name="Records" component={RecordScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -92,51 +122,43 @@ const styles = StyleSheet.create({
     backgroundColor: '#f7f7f7',
     flex: 1,
   },
-  header: {
-    fontSize: 48,
-    color: '#d9a7a7',
-    textAlign: 'center',
-  },
   input: {
     borderWidth: 1,
     borderColor: '#ccc',
     marginBottom: 10,
     padding: 10,
     backgroundColor: '#fff',
+    borderRadius: 5,
   },
-  todoItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
+  recordItem: {
     backgroundColor: '#fff',
-    padding: 10,
-    borderRadius: 5,
+    padding: 15,
+    borderRadius: 8,
+    marginBottom: 10,
+    elevation: 2,
   },
-  todoText: {
-    flex: 1,
+  recordText: {
     fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 5,
   },
-  doneText: {
-    flex: 1,
-    fontSize: 16,
-    textDecorationLine: 'line-through',
-    color: 'gray',
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
   },
-  doneButton: {
-    backgroundColor: 'green',
-    padding: 5,
-    marginRight: 5,
+  editButton: {
+    backgroundColor: '#4CAF50',
+    padding: 8,
     borderRadius: 5,
-  },
-  doneButtonText: {
-    color: 'white',
   },
   deleteButton: {
-    backgroundColor: 'red',
-    padding: 5,
+    backgroundColor: '#FF5733',
+    padding: 8,
     borderRadius: 5,
   },
-  deleteButtonText: {
-    color: 'white',
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
   },
 });
