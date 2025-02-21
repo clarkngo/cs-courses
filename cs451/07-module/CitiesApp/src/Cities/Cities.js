@@ -18,7 +18,7 @@ export default class Cities extends React.Component {
   };
 
   render() {
-    const { cities } = this.props; // ✅ Cities now passed as a prop
+    const { cities } = this.props;
     return (
       <ScrollView contentContainerStyle={[!cities.length && { flex: 1 }]}>
         <View style={[!cities.length && { justifyContent: 'center', flex: 1 }]}>

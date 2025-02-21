@@ -25,7 +25,7 @@ class AddCity extends React.Component {
       id: uuid.v4(),
       locations: [],
     };
-    this.props.addCity(newCity); // ✅ State lifted up, no params anymore
+    this.props.addCity(newCity); 
     this.setState(
       {
         city: '',
