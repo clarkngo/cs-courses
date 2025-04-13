@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Incident Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f6f9; }
+        h2 { color: #2d2d2d; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { padding: 12px; border-bottom: 1px solid #ddd; text-align: left; }
+        th { background-color: #0072c6; color: white; }
+        tr:hover { background-color: #f1f1f1; }
+        a.button { padding: 6px 12px; background: #0072c6; color: white; text-decoration: none; border-radius: 4px; }
+        a.button:hover { background: #005999; }
+        .new-btn { margin-top: 20px; display: inline-block; }
+    </style>
+</head>
+<body>
+    <h2>Incident Tickets</h2>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Reporter</th>
+            <th>Assignee</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+        {% for t in tickets %}
+        <tr>
+            <td>{{ t.title }}</td>
+            <td>{{ t.status }}</td>
+            <td>{{ t.reporter }}</td>
+            <td>{{ t.assignee or "Unassigned" }}</td>
+            <td>{{ t.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+            <td>
+                {% if t.status != 'Resolved' %}
+                    <a class="button" href="/resolve/{{ t.id }}">Resolve</a>
+                {% else %}
+                    ✅
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a class="button new-btn" href="/create">Create New Ticket</a>
+</body>
+</html>
