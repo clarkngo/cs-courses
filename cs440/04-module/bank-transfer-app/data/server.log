@@ -16,3 +16,15 @@
 2025-04-24 17:46:36,990 - INFO - Visited Home Page
 2025-04-24 17:46:36,991 - INFO - 127.0.0.1 - - [24/Apr/2025 17:46:36] "GET / HTTP/1.1" 200 -
 2025-04-24 17:46:37,372 - INFO - 127.0.0.1 - - [24/Apr/2025 17:46:37] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-04-24 22:08:32,504 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2025-04-24 22:08:32,504 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-24 22:08:32,505 - INFO -  * Restarting with stat
+2025-04-24 22:08:32,821 - WARNING -  * Debugger is active!
+2025-04-24 22:08:32,854 - INFO -  * Debugger PIN: 339-516-008
+2025-04-24 22:08:38,907 - INFO - Visited Home Page
+2025-04-24 22:08:38,912 - INFO - 127.0.0.1 - - [24/Apr/2025 22:08:38] "GET / HTTP/1.1" 200 -
+2025-04-24 22:08:39,180 - INFO - 127.0.0.1 - - [24/Apr/2025 22:08:39] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-04-24 22:09:15,851 - INFO - Visited Home Page
+2025-04-24 22:09:15,851 - INFO - 127.0.0.1 - - [24/Apr/2025 22:09:15] "GET / HTTP/1.1" 200 -
+2025-04-24 22:09:16,083 - INFO - 127.0.0.1 - - [24/Apr/2025 22:09:16] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
