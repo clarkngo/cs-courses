@@ -1,7 +1,7 @@
 {
   "123-001": {
     "name": "Alice Johnson",
-    "balance": 100.0
+    "balance": 98.0
   },
   "123-002": {
     "name": "Bob Smith",
@@ -9,6 +9,6 @@
   },
   "123-003": {
     "name": "Carol Lee",
-    "balance": 50.0
+    "balance": 52.0
   }
 }
