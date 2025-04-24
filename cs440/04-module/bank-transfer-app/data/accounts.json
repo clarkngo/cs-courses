@@ -1,0 +1,14 @@
+{
+  "123-001": {
+    "name": "Alice Johnson",
+    "balance": 100.0
+  },
+  "123-002": {
+    "name": "Bob Smith",
+    "balance": 200.0
+  },
+  "123-003": {
+    "name": "Carol Lee",
+    "balance": 50.0
+  }
+}

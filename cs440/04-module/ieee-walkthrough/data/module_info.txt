@@ -1,0 +1,29 @@
+
+System: Banking App
+Module: Fund Transfer
+
+1. Overview:
+This module enables a user to transfer funds from their own account to another account. Transfers can be immediate or scheduled for a future date.
+
+2. Flow Description:
+- User selects "Transfer Funds"
+- Chooses source account and destination account
+- Inputs amount and date (defaults to today)
+- Confirms transaction
+- Backend validates:
+  - Sufficient balance
+  - Valid destination account
+- If valid, transaction is queued and processed
+- User is shown a confirmation screen
+
+3. Assumptions:
+- Only domestic transfers are allowed in v1.
+- No support for recurring transfers yet.
+
+4. Error Handling:
+- Insufficient funds → "Insufficient funds"
+- Invalid transaction → show "Source and destination accounts must be different."
+
+5. Logging:
+- Transfer events are logged for audit purposes
+- Includes timestamps, user ID, IP address

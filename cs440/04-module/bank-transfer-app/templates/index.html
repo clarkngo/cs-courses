@@ -1,0 +1,8 @@
+
+<h1>🏦 Fund Transfer Log</h1>
+<a href="/transfer">➕ Make a New Transfer</a>
+<ul>
+{% for t in transfers %}
+  <li>{{ t.date }}: Transferred ${{ t.amount }} from <b>{{ t.source }}</b> to <b>{{ t.destination }}</b></li>
+{% endfor %}
+</ul>

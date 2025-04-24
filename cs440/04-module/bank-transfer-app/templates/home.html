@@ -1,0 +1,17 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Fund Transfer Log</title>
+</head>
+<body>
+<h1>🏦 Fund Transfer Log</h1>
+<a href="/transfer">➕ New Transfer</a>
+<ul>
+  {% for t in transfers|reverse %}
+    <li>{{ t.date }} | {{ t.source }} ➡ {{ t.destination }} | ${{ t.amount }}</li>
+  {% endfor %}
+</ul>
+</body>
+</html>

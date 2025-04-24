@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Walkthrough Review - 3 Column Layout</title>
+    <style>
+        .container {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        .column {
+            flex: 1;
+            min-width: 300px;
+        }
+        pre {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        form {
+            max-width: 100%;
+        }
+        textarea {
+            height: 30px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        .readonly-field {
+            background-color: #f0f0f0;
+            color: #555;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+<h1>🔍 IEEE 1028 Walkthrough Review: Fund Transfer Module</h1>
+
+<div class="container">
+    <div class="column">
+        <h2>📝 Review Form</h2>
+        <form method="post" action="/feedback">
+            <label>Project Name:</label>
+            <input type="text" name="project_name" value="Bank System" class="readonly-field" required><br/>
+
+            <label>Module Reviewed:</label>
+            <input type="text" name="module_reviewed" value="Fund Transfer" class="readonly-field" required><br/>
+
+            <label>App Author:</label>
+            <input type="text" name="author" value="Clark Ngo" readonly class="readonly-field" required><br/>
+
+            <label>Date of Walkthrough:</label>
+            <input type="date" name="walkthrough_date" value="{{ today }}" required><br/>
+
+            <label>Participants:</label>
+            <input type="text" name="reviewer1" value="Sam Chung" readonly class="readonly-field" required><br/>
+            <input type="text" name="reviewer2" placeholder="Reviewer 2" required><br/>
+
+            <label>Review Objectives:</label><br/><br/>
+            <label><input type="checkbox" name="objectives" value="Understand design logic"> Understand design logic</label><br/>
+            <label><input type="checkbox" name="objectives" value="Identify ambiguities or inconsistencies"> Identify ambiguities</label><br/>
+            <label><input type="checkbox" name="objectives" value="Suggest enhancements"> Suggest enhancements</label><br/><br/><br/>
+            
+
+            <label>Summary:</label><br/>
+            <textarea name="summary"></textarea><br/>
+
+            <label>Reviewer Questions:</label><br/>
+            <textarea name="question1" placeholder="Question 1"></textarea>
+            <textarea name="question2" placeholder="Question 2"></textarea><br/>
+
+            <label>Action Items / Clarifications:</label><br/>
+            <textarea name="action1" placeholder="Item 1"></textarea>
+            <textarea name="action2" placeholder="Item 2"></textarea><br/>
+
+            <label>Next Steps:</label><br/><br/>
+            <input type="checkbox" name="next_steps" value="Revise design"> Author will revise design<br/>
+            <input type="checkbox" name="next_steps" value="Schedule inspection"> Schedule inspection<br/>
+            <input type="checkbox" name="next_steps" value="Proceed with implementation"> Proceed with implementation<br/><br/>        
+
+            <label>Your Name:</label>
+            <input name="reviewer" placeholder="Your Name" required><br/><br/>
+
+            <button type="submit">Submit Review</button>
+        </form>
+    </div>
+
+    <div class="column">
+        <h2>📄 Module Description</h2>
+        <pre>{{ module_info }}</pre>
+    </div>
+
+    <div class="column">
+        <h2>🗒️ Feedback</h2>
+        <ul>
+        {% for entry in feedback|reverse %}
+            <li><b>{{ entry.reviewer }}</b>:<br/><pre>{{ entry.comment }}</pre></li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

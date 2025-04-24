@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Transfer Funds</title>
+</head>
+<body>
+<h1>Transfer Funds</h1>
+{% if error %}<p style="color:red">{{ error }}</p>{% endif %}
+<form method="post">
+  <label>From Account:</label>
+  <select name="source" required>
+    {% for account_id, account in accounts.items() %}
+      <option value="{{ account_id }}">
+        {{ account_id }} - {{ account.name }} (${{ "%.2f"|format(account.balance) }})
+      </option>
+    {% endfor %}
+  </select><br/><br/>
+
+  <label>To Account:</label><br/>
+  <select name="destination" required>
+    {% for account_id, account in accounts.items() %}
+      <option value="{{ account_id }}">
+        {{ account_id }} - {{ account.name }} (${{ "%.2f"|format(account.balance) }})
+      </option>
+    {% endfor %}
+  </select><br/><br/>
+
+  <label>Amount ($):</label>
+  <input name="amount" type="number" step="0.01" required>
+
+  <label>Transfer Date:</label>
+  <input name="date" type="date" value="{{ today }}" required>
+
+  <button type="submit">Submit Transfer</button>
+</form>
+<br/>
+<a href="/">⬅ Back</a>
+</body>
+</html>
