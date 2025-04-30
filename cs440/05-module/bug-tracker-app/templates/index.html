@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mini Bug Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Bug Tracker</h1>
+    <form action="/add" method="post">
+        <label>Title: <input type="text" name="title" required></label><br>
+        <label>Description: <input type="text" name="description" required></label><br>
+        <label>Priority:
+            <select name="priority">
+                <option>Low</option>
+                <option>Medium</option>
+                <option>High</option>
+            </select>
+        </label><br><br>
+        <button type="submit">Add Bug</button>
+    </form>
+
+    <h2>Bug List</h2>
+    <table>
+        <tr><th>ID</th><th>Title</th><th>Description</th><th>Priority</th><th>Status</th><th>Actions</th></tr>
+        {% for bug in bugs %}
+        <tr class="{{ 'closed' if bug.status == 'Closed' }}">
+            <td>{{ bug.id }}</td>
+            <td>{{ bug.title }}</td>
+            <td>{{ bug.description }}</td>
+            <td>{{ bug.priority }}</td>
+            <td>{{ bug.status }}</td>
+            <td>
+                {% if bug.status == 'Open' %}
+                <a href="/resolve/{{ bug.id }}">Mark as Closed</a>
+                {% else %}
+                N/A
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
