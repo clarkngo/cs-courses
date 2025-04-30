@@ -1,39 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Mini Bug Tracker</title>
+    <title>Bug Tracker</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Bug Tracker</h1>
-    <form action="/add" method="post">
+
+    <form action="/add" method="post" enctype="multipart/form-data">
         <label>Title: <input type="text" name="title" required></label><br>
+
         <label>Description: <input type="text" name="description" required></label><br>
+
         <label>Priority:
             <select name="priority">
                 <option>Low</option>
                 <option>Medium</option>
                 <option>High</option>
             </select>
-        </label><br><br>
+        </label><br>
+
+        <label>Type:
+            <select name="type">
+                <option>Validation</option>
+                <option>Functional Gap</option>
+                <option>Security</option>
+                <option>UX</option>
+                <option>UI Review</option>
+            </select>
+        </label><br>
+
+        <label>Audit Standard:
+            <select name="audit_standard">
+                <option>IEEE 1028</option>
+                <option>CMMI-DEV</option>
+                <option>ISO/IEC 12207</option>
+            </select>
+        </label><br>
+
+        <label>Corrective Action:<br>
+            <textarea name="corrective_action" rows="3" cols="50" required></textarea>
+        </label><br>
+
+        <label>Screenshot (optional): <input type="file" name="screenshot"></label><br><br>
+
         <button type="submit">Add Bug</button>
     </form>
 
     <h2>Bug List</h2>
     <table>
-        <tr><th>ID</th><th>Title</th><th>Description</th><th>Priority</th><th>Status</th><th>Actions</th></tr>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Priority</th>
+            <th>Type</th>
+            <th>Audit Standard</th>
+            <th>Corrective Action</th>
+            <th>Status</th>
+            <th>Screenshot</th>
+            <th>Actions</th>
+        </tr>
         {% for bug in bugs %}
         <tr class="{{ 'closed' if bug.status == 'Closed' }}">
             <td>{{ bug.id }}</td>
             <td>{{ bug.title }}</td>
             <td>{{ bug.description }}</td>
             <td>{{ bug.priority }}</td>
+            <td>{{ bug.type }}</td>
+            <td>{{ bug.audit_standard }}</td>
+            <td>{{ bug.corrective_action }}</td>
             <td>{{ bug.status }}</td>
             <td>
-                {% if bug.status == 'Open' %}
-                <a href="/resolve/{{ bug.id }}">Mark as Closed</a>
+                {% if bug.screenshot %}
+                    <a href="/{{ bug.screenshot }}" target="_blank">View</a>
                 {% else %}
-                N/A
+                    —
+                {% endif %}
+            </td>
+            <td>
+                {% if bug.status == 'Open' %}
+                    <a href="/resolve/{{ bug.id }}">Mark as Closed</a>
+                {% else %}
+                    N/A
                 {% endif %}
             </td>
         </tr>

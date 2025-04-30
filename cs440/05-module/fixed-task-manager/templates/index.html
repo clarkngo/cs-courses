@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Task Manager</h1>
+
+    <form action="/add" method="post">
+        <label>Task:</label>
+        <input type="text" name="task" required>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <h2>Tasks</h2>
+    <table>
+        <tr><th>ID</th><th>Task</th><th>Status</th><th>Actions</th></tr>
+        {% for t in tasks %}
+        <tr class="{{ 'closed' if t.status == 'Done' }}">
+            <td>{{ t.id }}</td>
+            <td>{{ t.task | e }}</td>
+            <td>{{ t.status }}</td>
+            <td>
+                {% if t.status == 'Pending' %}
+                    <a href="/complete/{{ t.id }}">Mark Done</a> |
+                {% endif %}
+                <a href="/delete/{{ t.id }}" onclick="return confirm('Delete this task?')">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
