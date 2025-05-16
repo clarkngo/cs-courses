@@ -1,0 +1,47 @@
+{
+  "auth_service": {
+    "url": "https://example.com/auth",
+    "health_check": "/ping",
+    "env": "production"
+  },
+  "user_service": {
+    "url": "https://example.com/users",
+    "health_check": "/status",
+    "env": "staging"
+  },
+  "payment_service": {
+    "url": "https://example.com/payments",
+    "health_check": "/health",
+    "env": "production"
+  },
+  "notification_service": {
+    "url": "https://example.com/notifications",
+    "health_check": "/ping",
+    "env": "staging"
+  },
+  "logging_service": {
+    "url": "https://logs.internal/api",
+    "health_check": "/healthz",
+    "env": "dev"
+  },
+  "analytics_service": {
+    "url": "https://analytics.example.com",
+    "health_check": "/status",
+    "env": "production"
+  },
+  "search_service": {
+    "url": "https://search.example.com",
+    "health_check": "/healthcheck",
+    "env": "staging"
+  },
+  "media_service": {
+    "url": "https://media.example.com",
+    "health_check": "/health",
+    "env": "dev"
+  },
+  "recommendation_service": {
+    "url": "https://recommend.example.com",
+    "health_check": "/ping",
+    "env": "production"
+  }
+}
