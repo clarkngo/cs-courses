@@ -10,8 +10,8 @@
     "env": "staging"
   },
   "payment_service": {
-    "url": "https://example.com/payments",
-    "health_check": "/health",
+    "url": "example.com/payment",
+    "health_check": "/status",
     "env": "production"
   },
   "notification_service": {
@@ -33,11 +33,6 @@
     "url": "https://search.example.com",
     "health_check": "/healthcheck",
     "env": "staging"
-  },
-  "media_service": {
-    "url": "https://media.example.com",
-    "health_check": "/health",
-    "env": "dev"
   },
   "recommendation_service": {
     "url": "https://recommend.example.com",
