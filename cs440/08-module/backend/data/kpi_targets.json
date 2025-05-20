@@ -1,0 +1,9 @@
+{
+  "defect_density": 0.3,
+  "test_coverage": 70,
+  "mttd": 7,
+  "injection_rate": 5,
+  "detection_rate": 80,
+  "review_efficiency": 0.8,
+  "checklist_adherence": 95
+}
