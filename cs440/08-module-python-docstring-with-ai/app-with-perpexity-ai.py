@@ -1,3 +1,60 @@
+"""
+Flask API for KPI, Risk, and Feedback Management
+
+This application provides a RESTful API for managing Key Performance Indicators (KPIs), KPI targets, risks, predefined risks, and user feedback. 
+It is designed to support a dashboard or management system that needs to store, retrieve, and update these datasets in JSON format.
+
+Endpoints:
+----------
+- GET /api/kpi
+    Returns the list of KPIs from `kpis.json`.
+
+- GET /api/kpi_targets
+    Returns the list of KPI targets from `kpi_targets.json`.
+
+- GET /api/risks
+    Returns the list of risks from `risks.json`.
+
+- POST /api/risks
+    Adds a new risk to `risks.json` and removes it from `predefined_risks.json` if present.
+    Expects a JSON object representing the new risk in the request body.
+
+- GET /api/predefined_risks
+    Returns the list of predefined risks from `predefined_risks.json`.
+
+- POST /api/feedback-submission
+    Submits user feedback related to metrics and appends it to `feedback.json`.
+    Expects a JSON object representing the feedback in the request body.
+
+Data Storage:
+-------------
+All data is stored in the `./data` directory as JSON files:
+- kpis.json: List of KPIs
+- kpi_targets.json: List of KPI targets
+- risks.json: List of risks
+- predefined_risks.json: List of predefined risks
+- feedback.json: List of user feedback submissions
+
+CORS:
+-----
+Cross-Origin Resource Sharing (CORS) is enabled for all routes to allow requests from different origins.
+
+Usage:
+------
+Run the app with:
+    python <filename>.py
+
+The app will start a development server on http://localhost:5000.
+
+Dependencies:
+-------------
+- Flask
+- flask_cors
+- json
+- os
+
+"""
+
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import json, os

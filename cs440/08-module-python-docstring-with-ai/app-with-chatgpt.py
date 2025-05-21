@@ -1,3 +1,60 @@
+"""
+Flask KPI and Risk Management API
+
+This application provides API endpoints for retrieving, adding, and managing KPIs (Key Performance Indicators), KPI targets, and risk-related data in JSON format. It is designed to support dashboards or feedback platforms for performance monitoring in an organizational or project setting.
+
+Modules:
+- Flask: Web framework for API routing
+- flask_cors: Handles Cross-Origin Resource Sharing
+- json, os: File handling for reading/writing JSON data
+
+Routes:
+-------
+
+GET /api/kpi
+    Returns the current KPI data from `kpis.json`.
+
+GET /api/kpi_targets
+    Returns the KPI target values from `kpi_targets.json`.
+
+GET /api/risks
+    Retrieves the list of submitted risks from `risks.json`.
+
+POST /api/risks
+    Adds a new risk entry to `risks.json` and removes the matching item (by ID) from `predefined_risks.json`.
+
+GET /api/predefined_risks
+    Returns predefined risks from `predefined_risks.json`, or an empty list if the file doesn't exist.
+
+POST /api/feedback-submission
+    Accepts metric feedback and appends it to `feedback.json`.
+
+Helper Functions:
+-----------------
+
+read_json(file: str) -> dict | list
+    Reads and parses JSON data from the specified file.
+
+write_json(file: str, data: dict | list)
+    Writes JSON data to the specified file with pretty formatting.
+
+Usage:
+------
+Run the app using:
+
+    python app.py
+
+Make sure the `./data` directory exists and contains the necessary JSON files:
+
+    - kpis.json
+    - kpi_targets.json
+    - risks.json
+    - predefined_risks.json
+    - feedback.json (optional; will be created on first POST)
+
+"""
+
+
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import json, os
