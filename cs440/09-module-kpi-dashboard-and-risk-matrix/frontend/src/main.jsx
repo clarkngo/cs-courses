@@ -10,6 +10,7 @@ function App() {
   const [kpiTargets, setKpiTargets] = useState({});
   const [selectedKPI, setSelectedKPI] = useState('defect_density');
   const [riskData, setRiskData] = useState([]);
+  const [predefinedRisks, setPredefinedRisks] = useState([]);
   const [selectedValuable, setSelectedValuable] = useState([]);
   const [selectedNotValuable, setSelectedNotValuable] = useState([]);
   const [justification, setJustification] = useState('');
@@ -20,14 +21,6 @@ function App() {
 
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
-
-  const predefinedRisks = [
-    { id: 'R004', description: 'Inconsistent unit testing' },
-    { id: 'R005', description: 'Developer turnover' },
-    { id: 'R006', description: 'Delayed code reviews' },
-    { id: 'R007', description: 'Dependency on unstable third-party libraries' },
-    { id: 'R008', description: 'Poor documentation in legacy modules' }
-  ];
 
   const metricDescriptions = {
     defect_density: "Defects per 1000 lines of code.",
@@ -43,6 +36,7 @@ function App() {
     fetch('/api/kpi').then(res => res.json()).then(setKpiData);
     fetch('/api/kpi_targets').then(res => res.json()).then(setKpiTargets);
     fetch('/api/risks').then(res => res.json()).then(setRiskData);
+    fetch('/api/predefined_risks').then(res => res.json()).then(setPredefinedRisks);
   }, []);
 
   useEffect(() => {
@@ -107,11 +101,16 @@ function App() {
       justification,
       timestamp: new Date().toISOString()
     };
-    fetch('/api/metric-submission', {
+    fetch('/api/feedback-submission', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
-    }).then(() => setSubmitted(true));
+    }).then(() => {
+      setSubmitted(false);
+      setSelectedValuable([]);
+      setSelectedNotValuable([]);
+      setJustification('');
+    });
   }
 
   function submitRisk() {
@@ -127,10 +126,17 @@ function App() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newRisk)
     }).then(() => {
-      setRiskData(prev => [...prev, newRisk]);
-      setSelectedRisk('');
-      setCustomLikelihood('');
-      setCustomImpact('');
+      // Refresh both risks and predefined risks
+      Promise.all([
+        fetch('/api/risks').then(res => res.json()),
+        fetch('/api/predefined_risks').then(res => res.json())
+      ]).then(([updatedRisks, updatedPredefined]) => {
+        setRiskData(updatedRisks);
+        setPredefinedRisks(updatedPredefined);
+        setSelectedRisk('');
+        setCustomLikelihood('');
+        setCustomImpact('');
+      });
     });
   }
 
@@ -222,7 +228,8 @@ function App() {
 
       <h2 style={{ marginTop: '3rem' }}>Risk Matrix</h2>
       <p><strong>Scenario:</strong> Your software project has just entered a critical delivery phase. As a QA leader, you must proactively assess and visualize technical risks that could affect performance, stability, or team coordination. Below is the matrix showing the severity of risks based on their likelihood and impact. You may submit additional risks from a common library to improve situational awareness.</p>
-
+      <p><strong>Likelihood:</strong> 1 - means low chance. 5 - means high chance</p>
+      <p><strong>Impact:</strong> 1 - means low impact. 5 - means high impact</p>      
       <div style={{ marginTop: '2rem', marginBottom: '1rem' }}>
         <h3>Submit a Risk to the Matrix</h3>
         <select value={selectedRisk} onChange={e => setSelectedRisk(e.target.value)}>
@@ -249,6 +256,23 @@ function App() {
       <div className="matrix-grid">
         {renderMatrix()}
       </div>
+
+            <div style={{ marginTop: '1rem' }}>
+        <label>
+          <h3>Justify your selections:</h3>
+          <textarea
+            rows="5"
+            cols="80"
+            placeholder="Explain why you chose these risks with their corresponding likelihood and impact."
+            value={justification}
+            onChange={(e) => setJustification(e.target.value)}
+          ></textarea>
+        </label>
+      </div>
+
+      <button style={{ marginTop: '1rem' }} onClick={handleSubmit} disabled={submitted}>
+        {submitted ? 'Submitted' : 'Submit Evaluation'}
+      </button>
     </div>
   );
 }

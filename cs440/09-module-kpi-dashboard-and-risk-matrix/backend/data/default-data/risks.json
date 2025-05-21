@@ -1,0 +1,20 @@
+[
+  {
+    "id": "R001",
+    "description": "Unstable third-party API",
+    "likelihood": 4,
+    "impact": 5
+  },
+  {
+    "id": "R002",
+    "description": "Delayed test cycles",
+    "likelihood": 3,
+    "impact": 2
+  },
+  {
+    "id": "R005",
+    "description": "Developer turnover",
+    "likelihood": 1,
+    "impact": 2
+  }
+]

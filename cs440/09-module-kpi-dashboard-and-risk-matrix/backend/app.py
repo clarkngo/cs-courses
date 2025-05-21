@@ -33,22 +33,33 @@ def get_risks():
 @app.route('/api/risks', methods=['POST'])
 def add_risk():
     new_risk = request.get_json()
-    filepath = './data/risks.json'
-    if os.path.exists(filepath):
-        with open(filepath) as f:
+    risk_file = './data/risks.json'
+    predefined_file = './data/predefined_risks.json'
+
+    # Append to risks.json
+    risks = []
+    if os.path.exists(risk_file):
+        with open(risk_file) as f:
             risks = json.load(f)
-    else:
-        risks = []
     risks.append(new_risk)
-    with open(filepath, 'w') as f:
+    with open(risk_file, 'w') as f:
         json.dump(risks, f, indent=2)
+
+    # Remove from predefined_risks.json
+    if os.path.exists(predefined_file):
+        with open(predefined_file) as f:
+            predefined = json.load(f)
+        predefined = [r for r in predefined if r.get('id') != new_risk.get('id')]
+        with open(predefined_file, 'w') as f:
+            json.dump(predefined, f, indent=2)
+
     return jsonify(new_risk), 201
 
 
-@app.route('/api/metric-submission', methods=['POST'])
+@app.route('/api/feedback-submission', methods=['POST'])
 def save_metric_feedback():
     feedback = request.get_json()
-    filepath = './data/metric_feedback.json'
+    filepath = './data/feedback.json'
     if os.path.exists(filepath):
         with open(filepath) as f:
             all_feedback = json.load(f)
@@ -59,6 +70,16 @@ def save_metric_feedback():
     with open(filepath, 'w') as f:
         json.dump(all_feedback, f, indent=2)
     return jsonify({"status": "saved"}), 201
+
+
+@app.route('/api/predefined_risks', methods=['GET'])
+def get_predefined_risks():
+    filepath = './data/predefined_risks.json'
+    if not os.path.exists(filepath):
+        return jsonify([])  # Return empty list if the file doesn't exist
+    with open(filepath) as f:
+        risks = json.load(f)
+    return jsonify(risks)
 
 if __name__ == '__main__':
     app.run(debug=True)
