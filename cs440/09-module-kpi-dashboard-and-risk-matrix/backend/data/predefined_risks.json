@@ -1,7 +1,18 @@
 [
-  { "id": "R004", "description": "Inconsistent unit testing" },
-  { "id": "R005", "description": "Developer turnover" },
-  { "id": "R006", "description": "Delayed code reviews" },
-  { "id": "R007", "description": "Dependency on unstable third-party libraries" },
-  { "id": "R008", "description": "Poor documentation in legacy modules" }
+  {
+    "id": "R004",
+    "description": "Inconsistent unit testing"
+  },
+  {
+    "id": "R005",
+    "description": "Developer turnover"
+  },
+  {
+    "id": "R007",
+    "description": "Dependency on unstable third-party libraries"
+  },
+  {
+    "id": "R008",
+    "description": "Poor documentation in legacy modules"
+  }
 ]

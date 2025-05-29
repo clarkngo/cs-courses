@@ -16,5 +16,11 @@
     "description": "Developer turnover",
     "likelihood": 1,
     "impact": 2
+  },
+  {
+    "description": "Delayed code reviews",
+    "id": "R006",
+    "likelihood": 2,
+    "impact": 2
   }
 ]
