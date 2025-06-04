@@ -1,0 +1,16 @@
+{
+  "title": "USS Yorktown Division-by-Zero Crash (1998)",
+  "description": "In 1998, a crew member aboard the USS Yorktown entered a zero into a form field. The system did not validate the input, causing a division-by-zero error that crashed the ship’s propulsion system. The failure left the ship stranded and in need of towing, revealing a critical gap in input validation and error handling.",
+  "sqap": {
+    "Purpose": "Prevent critical software crashes due to unvalidated user input.",
+    "References": "IEEE-730, Navy software coding standards.",
+    "System Description": "Propulsion and navigation control system aboard the USS Yorktown.",
+    "Quality Objectives": "Ensure all numeric inputs are validated before processing.",
+    "Roles": "Developer, QA Analyst, Navy IT Officer.",
+    "Standards": "Use input validation libraries, conduct static code analysis.",
+    "Reviews": "Bi-weekly code review meetings and simulation audits.",
+    "Test Plan": "Automated tests for division logic and boundary value inputs.",
+    "Defect Management": "Use a ticketing system with priority labeling and a 48-hour SLA for critical bugs.",
+    "Supplier Control": "Regular audits and performance validation of third-party components."
+  }
+}

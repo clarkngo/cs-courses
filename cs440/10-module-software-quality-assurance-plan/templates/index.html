@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SQAP Workshop</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <h1>{{ scenario.title }}</h1>
+    <p>{{ scenario.description }}</p>
+
+    <h2>Sample Mini SQAP</h2>
+    <ul>
+        {% for key, value in scenario.sqap.items() %}
+        <li><strong>{{ key }}:</strong> {{ value }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Your Turn: Submit Your Mini SQAP</h2>
+    <form method="POST" action="/submit">
+        <label>Failure Title: <input type="text" name="title" required></label><br>
+        <label>System Description: <textarea name="description" required></textarea></label><br>
+        <label>Quality Objectives: <textarea name="objectives" required></textarea></label><br>
+        <label>Roles and Responsibilities: <textarea name="roles" required></textarea></label><br>
+        <label>Standards and Practices: <textarea name="standards" required></textarea></label><br>
+        <label>Test Plan Overview: <textarea name="test_plan" required></textarea></label><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
