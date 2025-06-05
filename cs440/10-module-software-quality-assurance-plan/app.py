@@ -20,7 +20,12 @@ def submit():
         "objectives": request.form["objectives"],
         "roles": request.form["roles"],
         "standards": request.form["standards"],
-        "test_plan": request.form["test_plan"]
+        "test_plan": request.form["test_plan"],
+        "defect_management": request.form["defect_management"],
+        "reviews": request.form["reviews"],
+        "supplier_control": request.form["supplier_control"],
+        "references": request.form["references"],
+        "purpose": request.form["purpose"]
     }
 
     if DATA_FILE.exists():

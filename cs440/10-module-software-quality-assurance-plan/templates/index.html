@@ -2,28 +2,115 @@
 <html>
 <head>
     <title>SQAP Workshop</title>
-    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <h1>{{ scenario.title }}</h1>
-    <p>{{ scenario.description }}</p>
+    <header>
+        <h1>{{ scenario.title }}</h1>
+    </header>
+    <main>
+        <p>{{ scenario.description }}</p>
 
-    <h2>Sample Mini SQAP</h2>
-    <ul>
-        {% for key, value in scenario.sqap.items() %}
-        <li><strong>{{ key }}:</strong> {{ value }}</li>
-        {% endfor %}
-    </ul>
+        <h2>Sample Mini SQAP</h2>
+        <ul>
+            {% for key, value in scenario.sqap.items() %}
+            <li><strong>{{ key }}:</strong> {{ value }}</li>
+            {% endfor %}
+        </ul>
 
-    <h2>Your Turn: Submit Your Mini SQAP</h2>
-    <form method="POST" action="/submit">
-        <label>Failure Title: <input type="text" name="title" required></label><br>
-        <label>System Description: <textarea name="description" required></textarea></label><br>
-        <label>Quality Objectives: <textarea name="objectives" required></textarea></label><br>
-        <label>Roles and Responsibilities: <textarea name="roles" required></textarea></label><br>
-        <label>Standards and Practices: <textarea name="standards" required></textarea></label><br>
-        <label>Test Plan Overview: <textarea name="test_plan" required></textarea></label><br>
-        <button type="submit">Submit</button>
-    </form>
+        <h2>How to Write Your Own Mini SQAP</h2>
+        <ol>
+            <li><strong>Choose a real-world software failure</strong> — e.g., Mars Orbiter loss, Therac-25, Equifax breach, Boeing 737 MAX issue.</li>
+            <li><strong>Briefly describe the system</strong> — What was the software supposed to do?</li>
+            <li><strong>Define 1–3 quality objectives</strong> — What quality goals could have prevented the failure?</li>
+            <li><strong>Identify responsible roles</strong> — Who would ensure these objectives are met?</li>
+            <li><strong>List standards or practices</strong> — e.g., input validation, code review, penetration testing.</li>
+            <li><strong>Outline a basic test plan</strong> — What tests could catch the bug?</li>
+        </ol>
+
+        <h2>Your Turn: Submit Your Mini SQAP</h2>
+        <form method="POST" action="/submit">
+            <label>References:
+                <textarea placeholder="Please add links to your research to get full credit" ="references" required></textarea>
+            </label>
+
+            <label>Failure Title:
+                <input type="text" name="title" required>
+            </label>
+
+            <label>System Description:
+                <textarea name="description" required></textarea>
+            </label>
+
+            <label>Quality Objectives:
+                <textarea name="objectives" required></textarea>
+            </label>
+
+            <label>Primary Role:
+                <select name="roles" required>
+                    <option value="">-- Select Primary Role --</option>
+                    <option value="Developer">Developer</option>
+                    <option value="QA Engineer">QA Engineer</option>
+                    <option value="Product Owner">Product Owner</option>
+                    <option value="External Vendor">External Vendor</option>
+                    <option value="Security Auditor">Security Auditor</option>
+                    <option value="Other">Other</option>
+                </select>
+            </label>
+
+            <label>Describe Responsibilities or Additional Roles:
+                <textarea name="roles_detail"></textarea>
+            </label>
+
+            <label>Standards and Practices:
+                <select name="standards" required>
+                    <option value="">-- Select a Standard --</option>
+                    <option value="IEEE-730">IEEE-730</option>
+                    <option value="OWASP Guidelines">OWASP Guidelines</option>
+                    <option value="ISO/IEC 25010">ISO/IEC 25010</option>
+                    <option value="Company QA SOP">Company QA SOP</option>
+                    <option value="Other">Other</option>
+                </select>
+            </label>
+
+            <label>Additional Practices (optional):
+                <textarea name="standards_detail"></textarea>
+            </label>
+
+            <label>Test Plan Type:
+                <select name="test_plan_type" required>
+                    <option value="">-- Select Test Focus --</option>
+                    <option value="Unit Testing">Unit Testing</option>
+                    <option value="Integration Testing">Integration Testing</option>
+                    <option value="Boundary Value Testing">Boundary Value Testing</option>
+                    <option value="Security/Penetration Testing">Security/Penetration Testing</option>
+                    <option value="Simulations">Simulations</option>
+                    <option value="Custom Plan">Custom Plan</option>
+                </select>
+            </label>
+
+            <label>Test Plan Details:
+                <textarea name="test_plan" required></textarea>
+            </label>
+
+            <label>Defect Management:
+                <textarea name="defect_management" required></textarea>
+            </label>
+
+            <label>Reviews and Audits:
+                <textarea name="reviews" required></textarea>
+            </label>
+
+            <label>Supplier Control:
+                <textarea name="supplier_control" required></textarea>
+            </label>
+
+            <label>Plan Purpose:
+                <textarea name="purpose" required></textarea>
+            </label>
+
+            <button type="submit">Submit</button>
+        </form>
+    </main>
 </body>
 </html>

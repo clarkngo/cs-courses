@@ -1,0 +1,95 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #eef2f7;
+    color: #333;
+}
+
+header {
+    background-color: #1e3a8a;
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+}
+
+main {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+
+h1, h2 {
+    color: #1e3a8a;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+ul li {
+    background-color: #f8fafc;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #3b82f6;
+    border-radius: 4px;
+}
+
+form {
+    margin-top: 2rem;
+    padding: 2rem;
+    background-color: #f1f5f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+form label {
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+form input[type="text"],
+form textarea,
+form select {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background-color: #ffffff;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+form input[type="text"]:focus,
+form textarea:focus,
+form select:focus {
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 0 1px #2563eb33;
+}
+
+form button {
+    display: inline-block;
+    background-color: #2563eb;
+    color: white;
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+form button:hover {
+    background-color: #1d4ed8;
+}
