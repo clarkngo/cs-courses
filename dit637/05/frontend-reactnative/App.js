@@ -9,6 +9,12 @@ const App = () => {
     const [filteredData, setFilteredData] = useState([]);
     const [loading, setLoading] = useState(true);
     const fetchMovies = async () => {
+        if (!API_URL) {
+          console.error('Error: API_URL is not set. Check your .env file and metro cache.');
+          setLoading(false);
+          return; 
+        }
+
         try {
           const response = await fetch(`${API_URL}/movies`);
           const data = await response.json();
