@@ -1,0 +1,86 @@
+# Node modules for both React Native and Express.js
+node_modules/
+npm-debug.log
+yarn-error.log
+*.log
+*.tsbuildinfo
+
+# React Native specific files
+# Packager files
+.packager/
+.react-native/
+.expo/
+
+# Metro Bundler
+*.packager
+
+# Build directory
+/build/
+
+# Android specific files
+android/.gradle/
+android/app/build/
+android/.idea/
+android/local.properties
+android/.settings/
+android/app/release/
+android/release/
+
+# iOS specific files
+ios/Pods/
+ios/build/
+ios/DerivedData/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+xcuserdata/
+*.xcodeproj/*
+
+# Express.js specific files
+# Logs
+logs/
+*.log
+
+# Directory for temporary files
+temp/
+tmp/
+
+# Build output
+dist/
+build/
+
+# Dependency directories
+node_modules/
+
+# Production
+.env
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea/
+*.sublime-project
+*.sublime-workspace
+.vscode/
+*.code-workspace
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk

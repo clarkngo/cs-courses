@@ -1,0 +1,5 @@
+mlflow
+python-dotenv
+pymongo
+numpy
+tensorflow

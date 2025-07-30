@@ -1,0 +1,96 @@
+# Node modules for React Native
+node_modules/
+npm-debug.log
+yarn-error.log
+*.log
+*.tsbuildinfo
+
+# React Native specific files
+# Packager files
+.packager/
+.react-native/
+.expo/
+
+# Metro Bundler
+*.packager
+
+# Build directory
+/build/
+
+# Android specific files
+android/.gradle/
+android/app/build/
+android/.idea/
+android/local.properties
+android/.settings/
+android/app/release/
+android/release/
+
+# iOS specific files
+ios/Pods/
+ios/build/
+ios/DerivedData/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+xcuserdata/
+*.xcodeproj/*
+
+# FastAPI specific files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pylib
+*.sqlite3
+*.db
+instance/
+.env
+venv/
+.env.*
+*.swp
+
+# Python packaging
+*.egg
+*.egg-info/
+dist/
+build/
+*.whl
+*.manifest
+*.lock
+
+# VSCode
+.vscode/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
+
+# Editor directories and files
+.idea/
+*.sublime-project
+*.sublime-workspace
+.vscode/
+*.code-workspace

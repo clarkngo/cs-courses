@@ -1,0 +1,13 @@
+fastapi
+pydantic
+transformers
+uvicorn
+scikit-learn
+python-dotenv
+mlflow
+pandas
+asyncio
+httpx
+langchain
+chromadb==0.3.29
+langchain_community

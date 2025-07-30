@@ -1,0 +1,8 @@
+fastapi
+pydantic
+transformers
+uvicorn
+scikit-learn
+python-dotenv
+mlflow
+pandas
