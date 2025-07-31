@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ main ]
   workflow_dispatch:
-
+  
 jobs:
   build_test:
     runs-on: ubuntu-latest
@@ -59,7 +59,6 @@ jobs:
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a'
 
-          
   deploy:
     name: Push to EC2 Instance
     runs-on: ubuntu-latest
@@ -79,28 +78,54 @@ jobs:
           echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
 
-      - name: Deploy to my EC2 instance
+      - name: Deploy backend code and .env to EC2
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key ubuntu@${{ secrets.EC2_PUBLIC_DNS }} "rm -rf ~/backend-expressjs && mkdir ~/backend-expressjs"
           scp -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key -r backend-expressjs/* ubuntu@${{ secrets.EC2_PUBLIC_DNS }}:~/backend-expressjs/
           scp -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key .env ubuntu@${{ secrets.EC2_PUBLIC_DNS }}:~/backend-expressjs/.env
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
 
-      - name: Kill process on port 3000 and start backend
+      - name: Start backend server and expose with ngrok
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key ubuntu@${{ secrets.EC2_PUBLIC_DNS }} << 'EOF'
+          # Install dependencies
           sudo apt-get update
-          sudo apt-get install -y nodejs npm
-          sudo lsof -t -i:3000 | sudo xargs kill -9 || true # Kill any process using port 3000
+          sudo apt-get install -y nodejs npm unzip curl
+
+          # Kill any process on port 3000
+          sudo lsof -t -i:3000 | sudo xargs kill -9 || true
+
+          # Run backend
           cd ~/backend-expressjs
           npm install
-          export $(cat .env | xargs) # Load .env variables into the shell
+          export $(cat .env | xargs)
           nohup npm start > app.log 2>&1 &
-          sleep 5 # Give server time to start
-          PUBLIC_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)
-          echo "Server is running at http://$PUBLIC_IP:3000"
+
+          # Download ngrok if not exists
+          if [ ! -f ngrok ]; then
+            curl -s https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.zip -o ngrok.zip
+            unzip ngrok.zip
+            chmod +x ngrok
+          fi
+
+          # Authenticate ngrok
+          ./ngrok config add-authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
+
+          # Start ngrok on port 3000
+          nohup ./ngrok http 3000 --log=stdout > ngrok.log 2>&1 &
+          sleep 5
+
+          # Print ngrok public URL
+          curl --silent http://127.0.0.1:4040/api/tunnels | jq -r '.tunnels[0].public_url'
           EOF
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
           EC2_PUBLIC_DNS: ${{ secrets.EC2_PUBLIC_DNS }}
+
+      - name: Print Ngrok Public URL
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key ubuntu@${{ secrets.EC2_PUBLIC_DNS }} << 'EOF'
+          # Wait a bit just in case ngrok is still starting
+          sleep 5
+          # Fetch the public URL from ngrok's local API
+          curl --silent http://127.0.0.1:4040/api/tunnels | jq -r '.tunnels[0].public_url'
+          EOF
