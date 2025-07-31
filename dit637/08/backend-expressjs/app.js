@@ -15,6 +15,7 @@ dotenv.config();
 const app = express();
 const port = 3000;
 const uri = process.env.MONGODB_URI;
+console.log(process.env.MONGODB_URI)
 if (!uri) {
     console.error('MongoDB URI is not defined');
     process.exit(1);
