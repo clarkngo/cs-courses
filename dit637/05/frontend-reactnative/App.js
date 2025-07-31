@@ -14,9 +14,13 @@ const App = () => {
           setLoading(false);
           return; 
         }
-
+        console.log('API_URL:', API_URL);
         try {
-          const response = await fetch(`${API_URL}/movies`);
+          const response = await fetch(`${API_URL}/movies`, {
+            headers: {
+              'ngrok-skip-browser-warning': 'true',
+            }
+          });
           const data = await response.json();
           const formattedData = data.map(movie => ({
             title: movie.title,
