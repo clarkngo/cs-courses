@@ -9,8 +9,8 @@ scripts = [
     'log_movie_model_rf.py'
 ]
 
-# Path where the scripts are located
-script_path = '/workspaces/DIT637-TT07/mlops-mlflow'  # Update this to your actual path
+# Automatically get current directory
+script_path = os.getcwd()
 
 # Change working directory to script path
 os.chdir(script_path)
