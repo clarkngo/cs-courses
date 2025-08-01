@@ -4,7 +4,7 @@ import shutil
 from langchain_community.embeddings.ollama import OllamaEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.schema.document import Document
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 
 import requests
 import pymongo
@@ -63,33 +63,27 @@ def calculate_chunk_ids(chunks):
     return chunks
 
 def add_to_chroma(chunks: list[Document]):
-    # Load the existing database.
     db = Chroma(
         persist_directory=CHROMA_PATH, embedding_function=get_embedding_function()
     )
 
-    # Calculate Page IDs.
     chunks_with_ids = calculate_chunk_ids(chunks)
 
-    # Add or Update the documents.
-    existing_items = db.get(include=[])  # IDs are always included by default
+    existing_items = db.get(include=[])  # IDs included by default
     existing_ids = set(existing_items["ids"])
     print(f"Number of existing documents in DB: {len(existing_ids)}")
 
-    # Only add documents that don't exist in the DB.
-    new_chunks = []
-    for chunk in chunks_with_ids:
-        if chunk.metadata["id"] not in existing_ids:
-            new_chunks.append(chunk)
+    new_chunks = [chunk for chunk in chunks_with_ids if chunk.metadata["id"] not in existing_ids]
 
-    if len(new_chunks):
+    if new_chunks:
         print(f"👉 Adding new documents: {len(new_chunks)}")
         new_chunk_ids = [chunk.metadata["id"] for chunk in new_chunks]
         db.add_documents(new_chunks, ids=new_chunk_ids)
-        db.persist()
+        # no db.persist() call here
         print(f"✅ Finished adding new documents: {len(new_chunks)}")
     else:
         print("✅ No new documents to add")
+
 
 
 def clear_database():
