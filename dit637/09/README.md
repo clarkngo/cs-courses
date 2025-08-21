@@ -26,7 +26,7 @@
 ## Run Machine Learning Operations (MLOps) Tracking Server
 1. Open New Terminal
 2. `cd mlops-mlflow`
-3. `pip install -r requirements`
+3. `pip install -r requirements.txt`
 4. `mlflow server`
 
 ## Run Machine Learning Models
