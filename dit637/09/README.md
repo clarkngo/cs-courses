@@ -52,7 +52,7 @@ Note: It will run the following Python scripts
 2. Open New Terminal
 3. `cd frontend-reactnative`
 4. `npm install`
-6. `npx expo start --web`
+5. `npx expo start --web`
 
 ## EXTRA: Test Ollama Server using curl command
 1. New Terminal
