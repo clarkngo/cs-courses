@@ -1,9 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select  # for interacting with dropdowns
-from selenium.webdriver.support.ui import WebDriverWait  # for explicit waits
-from selenium.webdriver.support import expected_conditions as EC
-import time  # increase wait time for debugging
+from selenium.webdriver.support.ui import Select          # for interacting with dropdowns
+from selenium.webdriver.support.ui import WebDriverWait    # for explicit waits
+from selenium.webdriver.support import expected_conditions as EC  # increase wait time for debugging
+import time
 
 browser = webdriver.Chrome()
 browser.get("https://accounts.google.com/signup")
@@ -31,7 +31,7 @@ time.sleep(2)
 month = Select(browser.find_element(By.ID, "month"))
 month.select_by_visible_text('January')
 time.sleep(2)
-# Enter the year of birth
+
 year = browser.find_element(By.NAME, "year")
 year.send_keys("1990")
 time.sleep(2)
@@ -54,10 +54,9 @@ time.sleep(2)
 browser.find_element(By.ID, "next").click()
 
 # Enter password and confirm password
-# We are waiting for Google to verify the email and then show the input field
-# So an explicit wait is needed here to wait for a certain condition to occur before proceeding
+# We are waiting for google to verifies the email and then shows the input field
+# So an explicit wait is needed here which is a code you define to wait for a certain condition to occur before proceeding,
 # In this case, it is the visibility of the password input field.
-
 passwd = WebDriverWait(browser, 60).until(EC.visibility_of_element_located((By.NAME, "Passwd")))
 passwd.send_keys("ThomAnd1190")
 
