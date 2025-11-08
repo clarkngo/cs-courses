@@ -3,3 +3,7 @@ node_modules
 __pycache__
 .pytest_cache
 .venv
+
+# Ignore large files removed from history to avoid re-adding them
+cs451/code-hos01-hos10.zip
+cs506/pe/04/PE04_winereview.csv
