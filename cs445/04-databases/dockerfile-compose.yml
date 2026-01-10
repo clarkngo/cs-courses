@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+
+  python-dev:
+    container_name: python-dev-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./test:/home
+
+  mysql-dev:
+    image: mysql:8.0
+    container_name: mysql-dev-container
+    ports:
+      - "6603:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+    volumes:
+      - /storage/docker/mysql-datadirectory:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    container_name: adminer-tool
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql-dev
+
+networks:
+  devnet:
