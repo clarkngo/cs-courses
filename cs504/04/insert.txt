@@ -1,0 +1,29 @@
+INSERT INTO employee (id, name, email, gender, designation)   
+
+VALUES (1,'Alice','alice@xyz.com','M','Software Developer');  
+
+ 
+
+INSERT INTO employee (id, name, email, gender, designation) 
+
+VALUES (2,'John','john@xyz.com','M','Software Manager');     
+
+ 
+
+ 
+
+INSERT INTO employee (id, name, email, gender, designation)  
+
+VALUES (3,'Ajay','ajay@xyz.com','M','Software Developer'); 
+
+   
+
+INSERT INTO employee (id, name, email, gender, designation)  
+
+VALUES (4,'Polina','polina@xyz.com','F','Sales Manager'); 
+
+ 
+
+INSERT INTO employee (id, name, email, gender, designation)   
+
+VALUES (5,'Henry','henry@xyz.com','M','Senior Software Manager');  

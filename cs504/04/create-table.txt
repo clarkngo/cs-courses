@@ -1,0 +1,13 @@
+CREATE TABLE employee ( 
+
+id int NOT NULL PRIMARY KEY, 
+
+name varchar(255) NOT NULL, 
+
+email varchar(255), 
+
+gender varchar(255), 
+
+designation varchar(255) 
+
+); 

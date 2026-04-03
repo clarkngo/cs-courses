@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+
+  # Flask API Service
+  flask-api:
+    container_name: flask-api-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5000" # Maps local port 5000 to Flask's port 5000 
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_APP=app.py # Tells Flask which file to run 
+      - FLASK_ENV=development
+    depends_on:
+      - mysql-dev
+
+  # Existing Python Dev Environment
+  python-dev:
+    container_name: python-dev-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./test:/home
+
+  # Existing MySQL Database
+  mysql-dev:
+    image: mysql:8.0
+    container_name: mysql-dev-container
+    ports:
+      - "6603:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+
+  # Existing Adminer Tool
+  adminer:
+    image: adminer
+    container_name: adminer-tool
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql-dev
