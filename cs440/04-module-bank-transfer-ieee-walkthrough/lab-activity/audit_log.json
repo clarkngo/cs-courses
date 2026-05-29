@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-05-29T14:32:10",
+  "user_id": "123-001",
+  "destination": "123-002",
+  "amount": 100.0,
+  "ip_address": "127.0.0.1"
+}
