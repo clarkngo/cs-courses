@@ -2,39 +2,82 @@ import json
 import os
 import sys
 import subprocess
+import glob
 
 REPORT_FILE = "debugging_report.md"
-TARGET_SCRIPT = "system_utilities.py"
 OUTPUT_FILE = "eval_results.json"
 
-json_data = {"status": "REJECTED", "score": 0, "raw_ai_critique": "Validation initialization failed."}
+# Default fallback failure state
+json_data = {
+    "status": "REJECTED",
+    "score": 0,
+    "raw_ai_critique": "Validation initialization failed."
+}
 
-if not os.path.exists(REPORT_FILE) or not os.path.exists(TARGET_SCRIPT):
-    json_data["raw_ai_critique"] = "Missing required execution metrics."
+print("[+] Independent Governance Gate active. Scanning for staging artifacts...")
+
+# 1. Dynamic Discovery: Find any file ending in '_healed.py'
+healed_files = glob.glob("*_healed.py")
+
+if not healed_files:
+    json_data["raw_ai_critique"] = "Missing required staging artifact: No '*_healed.py' file found."
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(json_data, f, indent=2)
+    print("[-] Evaluation aborted: No staging target found.")
     sys.exit(1)
 
-print(f"[+] Evaluator Active. Validating standalone execution safety for '{TARGET_SCRIPT}'...")
+# Select the discovered healed script target
+target_script = healed_files[0]
+print(f"[+] Target artifact identified: '{target_script}'")
 
-# Programmatically run the script to confirm the errors are resolved
-run_check = subprocess.run(["python", TARGET_SCRIPT], capture_output=True, text=True)
+# 2. Verify existence of the companion compliance markdown report
+if not os.path.exists(REPORT_FILE):
+    json_data["raw_ai_critique"] = f"Missing compliance telemetry: '{REPORT_FILE}' not found."
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+        json.dump(json_data, f, indent=2)
+    print("[-] Evaluation aborted: Missing report file.")
+    sys.exit(1)
 
-if run_check.returncode == 0:
+# 3. Execution Gate: Run the staging artifact programmatically
+run_check = subprocess.run(["python", target_script], capture_output=True, text=True)
+
+# Define common crash signatures to ensure true runtime safety
+has_runtime_crash = (
+    run_check.returncode != 0 or 
+    "Traceback" in run_check.stderr or 
+    "KeyError" in run_check.stderr or 
+    "NameError" in run_check.stderr
+)
+
+if not has_runtime_crash:
+    # 4. Semantic Report Audit
     with open(REPORT_FILE, "r", encoding="utf-8") as rf:
         report_text = rf.read()
         
-    if "## Programmatic Self-Healing Diffs Applied" in report_text:
+    # Check for general compliance headers present in both lab manual specs
+    if "Report" in report_text and "Audited" in report_text:
         json_data = {
             "status": "APPROVED",
             "score": 100,
-            "raw_ai_critique": "The structural verification gate confirmed the script executes with 0 faults. Automated self-healing logs match structural standards."
+            "raw_ai_critique": f"The verification gate successfully validated '{target_script}'. The script compiled cleanly (Exit 0) and the orchestration report passed structural compliance."
         }
     else:
-        json_data = {"status": "REJECTED", "score": 50, "raw_ai_critique": "Code passes execution check, but report layout is missing logs."}
+        json_data = {
+            "status": "REJECTED",
+            "score": 50,
+            "raw_ai_critique": "The healed script executes cleanly, but the companion markdown report layout failed structural auditing criteria."
+        }
 else:
-    json_data = {"status": "REJECTED", "score": 0, "raw_ai_critique": f"Script failed execution gate check. Crash traceback:\n{run_check.stderr[:150]}"}
+    # Capture the first 150 characters of the stderr crash buffer for student feedback
+    clipped_error = run_check.stderr.strip()[:150] if run_check.stderr else "Unknown runtime exception encountered."
+    json_data = {
+        "status": "REJECTED",
+        "score": 0,
+        "raw_ai_critique": f"Staging artifact execution gate check failed. Live crash exception captured:\n{clipped_error}"
+    }
 
+# 5. Output standardized JSON metrics
 with open(OUTPUT_FILE, "w", encoding="utf-8") as j:
     json.dump(json_data, j, indent=2)
-print(f"[+] Evaluation matrix written cleanly to '{OUTPUT_FILE}'.")
+
+print(f"[+] Governance evaluation complete. Results written cleanly to '{OUTPUT_FILE}'.")
