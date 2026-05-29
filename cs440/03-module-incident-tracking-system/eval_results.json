@@ -1,0 +1,5 @@
+{
+  "status": "APPROVED",
+  "score": 100,
+  "raw_ai_critique": "Governance check passed. The script compiled cleanly, mapped the database exception to 'CRITICAL' severity, and routed the ticket to the Data Engineering domain under ITIL parameters."
+}

@@ -1,0 +1,6 @@
+{
+  "severity": "CRITICAL",
+  "category": "Database",
+  "summary": "SQLAlchemy connection timed out on backend server authentication paths.",
+  "remediation": "Verify VPC security group rules for ingress port 5432 and cycle target listener containers."
+}
