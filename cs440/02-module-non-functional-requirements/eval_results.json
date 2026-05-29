@@ -1,0 +1,5 @@
+{
+  "status": "APPROVED",
+  "score": 100,
+  "raw_ai_critique": "The governance gate verified that the service layer safely compiles, resists malformed key lookups, and encapsulates input handlers securely."
+}
