@@ -9,6 +9,7 @@ import axios from 'axios';
 let FASTAPI_URL = "http://127.0.0.1:8000";
 let OLLAMA_URL = "http://127.0.0.1:11434";
 let isConnected = false;
+const DEFAULT_OLLAMA_MODEL = process.env.OLLAMA_MODEL || 'tinyllama';
 
 dotenv.config();
 
@@ -187,8 +188,8 @@ app.post('/chat', async (req, res) => {
     try {
         let { model, messages } = req.body;
 
-        // Set default model to 'gemma2:2b' if not provided
-        model = model || 'gemma2:2b';
+        // Use the request model first, then the env default, then a safe fallback.
+        model = model || DEFAULT_OLLAMA_MODEL;
 
         // Set response headers for streaming
         res.setHeader('Content-Type', 'text/event-stream');

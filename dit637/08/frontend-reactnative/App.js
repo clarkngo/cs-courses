@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { TextInput, FlatList, Button, Text, View, StyleSheet, ActivityIndicator, Pressable, Alert, ScrollView } from 'react-native';
+import { TextInput, FlatList, Button, Text, View, StyleSheet, ActivityIndicator, Pressable, Alert } from 'react-native';
 import Collapsible from 'react-native-collapsible';
-import { API_URL } from '@env';
+import { API_URL, OLLAMA_MODEL } from '@env';
 
 const App = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -28,6 +28,7 @@ const App = () => {
 
     const handleChat = async () => {
         setIsLoading(true);
+        const model = OLLAMA_MODEL || 'tinyllama';
 
         try {
             const response = await fetch(`${API_URL}/chat`, {
@@ -36,7 +37,7 @@ const App = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    model: 'gemma2:2b',
+                    model,
                     messages: [
                         { role: 'user', content:  userInput }
                     ],
@@ -44,30 +45,25 @@ const App = () => {
             });
 
             if (response.ok) {
-                const reader = response.body.getReader();
-                const decoder = new TextDecoder('utf-8');
-            
-                while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) break;
-            
-                    // Decode the stream chunk
-                    const decodedChunk = decoder.decode(value, { stream: true });
-            
-                    // Split the decoded chunk into lines
-                    const lines = decodedChunk.split('\n').filter(line => line.trim() !== '');
-            
-                    for (const line of lines) {
-                        try {
-                            const parsed = JSON.parse(line);
-                            const content = parsed.message?.content?.trim();
-            
-                            if (content) {
-                                setMessages((prevMessages) => [...prevMessages, content]);
-                            }
-                        } catch (error) {
-                            console.error('Error parsing JSON:', error);
+                const rawResponse = typeof response.text === 'function'
+                    ? await response.text()
+                    : '';
+
+                const lines = rawResponse
+                    .split('\n')
+                    .map(line => line.trim())
+                    .filter(line => line !== '');
+
+                for (const line of lines) {
+                    try {
+                        const parsed = JSON.parse(line);
+                        const content = parsed.message?.content?.trim();
+
+                        if (content) {
+                            setMessages((prevMessages) => [...prevMessages, content]);
                         }
+                    } catch (error) {
+                        console.error('Error parsing JSON:', error);
                     }
                 }
             }
@@ -204,7 +200,7 @@ const App = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Movie Recommender and Search Application</Text>
-            <ScrollView contentContainerStyle={styles.scrollContainer}>
+            <View contentContainerStyle={styles.contentContainer}>
 
                 {/* Chat  */}
                 <View style={styles.searchContainer}>
@@ -358,7 +354,7 @@ const App = () => {
                         )}
                     />
                 </View>
-            </ScrollView>
+            </View>
         </View>
     );
 };
@@ -369,7 +365,7 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: '#fff',
     },
-    scrollContainer: {
+    contentContainer: {
         flexGrow: 1,
     },
     searchContainer: {
