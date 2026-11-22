@@ -1,0 +1,39 @@
+Challenge:
+What are the primary risks to data integrity 
+when flattening a NumPy array? Specifically, explain the 
+difference between a 'view' and a 'copy', and how using. ravel() VS  .flatten() method  
+can lead to accidental data mutation or memory errors.
+
+=> The main data integrity risk when flattening is unintended 
+sharing of memory. A view shares the original array’s data, 
+so changing it can mutate the source. A copy has its own 
+memory, so changes stay isolated. ravel() often returns 
+a view, making it faster and more memory-efficient but 
+riskier. flatten() always returns a copy, making it safer 
+for modification but more memory-expensive.
+
+Challenge:
+Concatenation is a general operation that joins arrays 
+along a specified axis, while vertical stacking is a 
+specialized operation that stacks arrays along the first axis 
+(rows) and ensures inputs are at least 2D.
+They produce different results when working with 1D arrays, higher-dimensional arrays, or when axis control is required, because vstack() reshapes inputs and enforces row-wise stacking, while concatenate() preserves the original dimensionality and allows flexible axis selection.
+
+Challenge: 
+Apply dot product operation to mat1 and mat2.
+ Compare results to np.matmul.
+ Both np.dot() and np.matmul() perform matrix multiplication 
+ when applied to 2D arrays.
+
+Challenge answers:
+Challenge: What are the primary use cases 
+for multi-dimensional arrays, and why does NumPy’s 
+contiguous memory 
+allocation outperform Python's nested lists?"
+Primary use cases of multi-dimensional array are data analysis, machine learning
+image processing, scientific computing where data is structured in grids or matrices.
+
+Why NumPy is faster:
+NumPy arrays use contiguous memory allocation, allowing 
+efficient CPU caching, vectorization, and execution in C code, whereas Python nested lists store elements as separate objects 
+with pointers, leading to slower performance.

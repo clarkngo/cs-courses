@@ -1,0 +1,16 @@
+Date,Store,Product,Quantity,Price
+2023-07-01,Store A,Product 1,5,10.0
+2023-07-02,Store B,Product 2,3,15.0
+2023-07-03,Store A,Product 3,2,20.0
+2023-07-04,Store C,Product 1,8,10.0
+2023-07-05,Store B,Product 3,1,20.0
+2023-07-06,Store C,Product 2,6,15.0
+2023-07-07,Store A,Product 1,7,10.0
+2023-07-08,Store C,Product 3,2,20.0
+2023-07-09,Store B,Product 2,5,15.0
+2023-07-10,Store A,Product 2,3,15.0
+2023-07-11,Store C,Product 1,4,10.0
+2023-07-12,Store B,Product 3,7,20.0
+2023-07-13,Store A,Product 1,6,10.0
+2023-07-14,Store C,Product 2,3,15.0
+2023-07-15,Store B,Product 3,4,20.0
